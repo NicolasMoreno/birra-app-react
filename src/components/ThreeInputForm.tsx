@@ -11,7 +11,7 @@ export const ThreeInputForm: FunctionComponent<InputProps> = ({}) => (
           <div className="p-col-12 p-md-4">
               <div className="p-inputgroup">
                   <span className="p-inputgroup-addon">
-                      <i className="pi pi-user"></i>
+                      <i className="pi pi-user"/>
                   </span>
                   <InputText placeholder="Username" />
               </div>
