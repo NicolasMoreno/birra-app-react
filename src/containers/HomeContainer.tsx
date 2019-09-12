@@ -12,6 +12,7 @@ import {Button} from 'primereact/button'
 
 import {BrowserView, MobileView} from 'react-device-detect'
 import {MenuItem} from "primereact/api";
+import {Toolbar} from "primereact/toolbar";
 
 interface HomeState {
     showSideNav: boolean
@@ -60,13 +61,30 @@ export class HomeContainer extends Component<HomeProps, HomeState> {
         this.setState({showSideNav: true});
     }
 
+    private changeNavBarStatus = () => {
+        this.setState({showSideNav: !this.state.showSideNav})
+    }
+
     render() {
         return (
             <Router history={this.props.history}>
                 <div className="home-container">
                 <BrowserView viewClassName="p-grid browser-view">
-                    <MegaMenu className="p-col-2" model={this.state.menuItems} orientation="vertical"/>
-                    <div className={'body p-col-10'}>
+                    {this.state.showSideNav && <MegaMenu className="p-col-2" model={this.state.menuItems} orientation="vertical"/>}
+                    <div className={`body ${this.state.showSideNav ? 'p-col-10' : 'p-col-12'}`}>
+                        <Toolbar>
+                            <div className="p-toolbar-group-left">
+                                <Button onClick={this.changeNavBarStatus} icon="pi pi-bars" className="p-button-primary p-button-raised" style={{marginRight:'.25em'}} />
+                                <Button label="Upload" icon="pi pi-upload" className="p-button-success" />
+                                <i className="pi pi-bars p-toolbar-separator" style={{marginRight:'.25em'}} />
+                                <Button label="Save" icon="pi pi-check" className="p-button-warning" />
+                            </div>
+                            <div className="p-toolbar-group-right">
+                                <Button icon="pi pi-search" style={{marginRight:'.25em'}} />
+                                <Button icon="pi pi-calendar" className="p-button-success" style={{marginRight:'.25em'}} />
+                                <Button icon="pi pi-times" className="p-button-danger" />
+                            </div>
+                        </Toolbar>
                         <Route path="/inputs" component={ThreeInputForm}/>
                         <Route path="/test" component={TaskContainer}/>
                     </div>
